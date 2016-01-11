@@ -1,0 +1,98 @@
+package shop.product;
+
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+import org.testng.annotations.BeforeClass;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.AfterClass;
+
+public class NewTest {
+	
+	private static WebDriver driver;
+	 private SoftAssert softAssert = new SoftAssert();
+	 public String tmp;
+	 public static final String USERNAME = "zaqwsx1";
+	  public static final String AUTOMATE_KEY = "Fs54nwmULt7BaSTosZxi";
+	  public static final String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub.browserstack.com/wd/hub";
+	  public String browser,brand;
+	  
+	 
+	  
+  @Test(priority=1)
+  public  static void variantName() {
+	  
+	  System.out.println("Let me look at the drop down");
+	  
+	  WebElement pack_size=driver.findElement(By.id("phdesktopbody_0_phdesktopproductprimarycontentarea_0_ProductVariantsLeft1_ddlVariantionSelectorLeft"));
+	  List<WebElement> pack  = pack_size.findElements(By.tagName("option"));
+	  for(int i=0;i<=pack.size();i++)
+	  {   
+		  String value = pack.get(i).getText();
+		  System.out.println("For Pack Size#" +i +" " +value);
+		  
+		  WebElement pack_variation=driver.findElement(By.id("phdesktopbody_0_phdesktopproductprimarycontentarea_0_ProductVariantsLeft2_ddlVariantionSelectorLeft"));
+		  List<WebElement> variation  = pack_variation.findElements(By.tagName("option"));
+		  int j = 0;
+		  System.out.println(variation.size());
+		  for(j=0;i<=variation.size();j++)
+		  {
+			  String value2 = variation.get(j).getText();
+			  System.out.println("Variation #" +j +" " +value2);
+			  
+
+			  
+		  }
+		 
+		
+	  }
+	  
+  }
+  
+
+
+  // Reads and returns field
+
+  
+  @BeforeClass
+  public void beforeClass() throws MalformedURLException {
+	  
+	  System.out.println("Let me run in Firefox");
+		 String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub.browserstack.com/wd/hub";
+		 DesiredCapabilities caps = new DesiredCapabilities();
+		 caps.setCapability("browserName", "Firfox");
+		 caps.setCapability("browser", "Firefox");
+		 caps.setCapability("browser_version", "43.0");
+		 caps.setCapability("os", "Windows");
+		 caps.setCapability("os_version", "10");
+		 caps.setCapability("resolution", "1024x768");
+		 caps.setCapability("browserstack.debug", "true");
+		 //caps.setCapability("browserstack.selenium_version", "2.47.1");
+		 caps.setCapability("acceptSslCerts", "true");
+		  driver = new RemoteWebDriver(new URL(URL), caps);
+	      browser="Firefox42";
+	      driver.get(System.getProperty("BrandUrl"));
+	      brand = System.getProperty("Brand");
+	  
+
+	  	System.out.println("The brand is " +brand);
+	      driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+	      driver.manage().window().maximize();
+  }
+
+  @AfterClass
+  public void afterClass() {
+  }
+
+}

@@ -1,0 +1,30 @@
+package shop.product;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.PageFactory;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class ProductVariation extends NewTest {
+	
+	public WebDriver driver;
+	
+	NewTest selectProduct;
+	
+	
+	@BeforeClass(alwaysRun = true)
+	public void setup()
+	{
+	driver= new FirefoxDriver();
+	selectProduct = PageFactory.initElements(driver, NewTest.class);
+	}
+	
+	@Test(priority=1)
+    public void testVariant()
+    {
+		selectProduct.selectPackSize(this.value);
+		selectProduct.selectPackValue(this.value2);
+    }
+
+}
